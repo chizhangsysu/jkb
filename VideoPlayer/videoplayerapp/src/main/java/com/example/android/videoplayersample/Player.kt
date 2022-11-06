@@ -26,6 +26,7 @@ import com.google.android.exoplayer2.ExoPlayerFactory
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource
 import com.google.android.exoplayer2.source.ExtractorMediaSource
+import com.google.android.exoplayer2.source.LoopingMediaSource
 import com.google.android.exoplayer2.source.MediaSource
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.ui.PlayerView
@@ -33,6 +34,7 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.jetbrains.anko.toast
+import java.io.File
 
 /**
  * Creates and manages a [com.google.android.exoplayer2.ExoPlayer] instance.
@@ -68,13 +70,16 @@ class PlayerHolder(private val context: Context,
         mediaCatalog.forEach {
             uriList.add(createExtractorMediaSource(it.mediaUri!!))
         }
-        return ConcatenatingMediaSource(*uriList.toTypedArray())
+        return LoopingMediaSource(ConcatenatingMediaSource(*uriList.toTypedArray()))
     }
 
     private fun createExtractorMediaSource(uri: Uri): MediaSource {
         return ExtractorMediaSource.Factory(
                 DefaultDataSourceFactory(context, "exoplayer-learning"))
                 .createMediaSource(uri)
+//        return ExtractorMediaSource.Factory(
+//                DefaultDataSourceFactory(context, "exoplayer-learning"))
+//                .createMediaSource(Uri.fromFile(File("/storage/self/primary/Download/jiankangbao.mp4")))
     }
 
     // Prepare playback.
@@ -128,10 +133,10 @@ class PlayerHolder(private val context: Context,
                     }
                     Player.STATE_READY -> when (playWhenReady) {
                         true -> {
-                            context.toast(R.string.msg_playback_started)
+//                            context.toast(R.string.msg_playback_started)
                         }
                         false -> {
-                            context.toast(R.string.msg_playback_paused)
+//                            context.toast(R.string.msg_playback_paused)
                         }
                     }
                 }

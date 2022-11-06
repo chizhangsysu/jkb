@@ -16,6 +16,9 @@
 
 package com.example.android.videoplayersample
 
+import java.util.Date
+import java.text.SimpleDateFormat
+import android.os.CountDownTimer
 import android.app.PictureInPictureParams
 import android.content.res.Configuration
 import android.media.AudioManager
@@ -58,6 +61,19 @@ class VideoActivity : AppCompatActivity(), AnkoLogger {
         super.onStart()
         startPlayer()
         activateMediaSession()
+        object : CountDownTimer(3000000, 1000) {
+
+            override fun onTick(millisUntilFinished: Long) {
+                val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+                val currentDate = sdf.format(Date())
+                textview_second.setText(currentDate)
+            }
+
+            override fun onFinish() {
+                textview_second.setText("done!")
+            }
+        }.start()
+
     }
 
     override fun onStop() {

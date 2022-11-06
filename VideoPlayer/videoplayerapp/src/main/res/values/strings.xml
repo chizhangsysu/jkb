@@ -15,7 +15,7 @@
   -->
 
 <resources>
-    <string name="app_name">A Simple VideoPlayer</string>
+    <string name="app_name">北京健康宝</string>
     <string name="msg_playback_ended">playback ended</string>
     <string name="msg_playback_started">playback started</string>
     <string name="msg_playback_paused">playback paused</string>
